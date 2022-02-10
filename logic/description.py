@@ -20,9 +20,8 @@ class ProdectDiscrib(ac.SelectTopic):
         
     def addProduct(self):
         # print('----------------------',self.data)
-        self.gdrive = ac.SelectTopic()
+        gdrive = ac.SelectTopic()
         def loopPro(lst):
-            
             
             # ---------- Gendral tab button -----------------
             # Product Name
@@ -37,40 +36,49 @@ class ProdectDiscrib(ac.SelectTopic):
             gdrive.call.driver.find_element_by_link_text("Data").click()
 
             # select Model ID
-            gdrive.call.driver.find_element_by_id("input-model").send_keys("model 0001")
+            gdrive.call.driver.find_element_by_id("input-model").send_keys(lst[3])
             
 
             # Making Charge Type
             Mk_charge_tp = Select(gdrive.call.driver.find_element_by_id("input-makingtype"))
-            Mk_charge_tp.select_by_visible_text("Fixed Rate")
+            Mk_charge_tp.select_by_visible_text(lst[4])
 
             # Making Charge
-            Mk_charge = gdrive.call.driver.find_element_by_id("input-makingcharge").send_keys(1)
+            Mk_charge = gdrive.call.driver.find_element_by_id("input-makingcharge").send_keys(lst[5])
     
             # Gold purity
             goldpurity = Select(gdrive.call.driver.find_element_by_id("input-goldpurity"))
             # goldpurity.select_by_index(2)
-            goldpurity.select_by_visible_text("24k")
+            try:
+                goldpurity.select_by_visible_text(lst[6])
+            except Exception:
+                goldpurity.select_by_visible_text("N/A")
 
             # Silver purity
             silverpurity = Select(gdrive.call.driver.find_element_by_id("input-silverpurity"))
-            silverpurity.select_by_visible_text("900")
-            
+            try:
+                silverpurity.select_by_visible_text(lst[7])
+            except Exception:
+                silverpurity.select_by_visible_text("N/A")
+
             # Platinum Purity
             Platinumpurity = Select(gdrive.call.driver.find_element_by_id("input-platinumpurity"))
-            Platinumpurity.select_by_visible_text("950")
-
+            try:
+                Platinumpurity.select_by_visible_text(lst[8])
+            except Exception:
+                Platinumpurity.select_by_visible_text("N/A")
+                
             # Metal Wastage(%)
-            gdrive.call.driver.find_element_by_id("input-metalwastage").send_keys(10)
+            gdrive.call.driver.find_element_by_id("input-metalwastage").send_keys(lst[9])
 
             # Price
-            gdrive.call.driver.find_element_by_id("input-price").send_keys(1000)
+            gdrive.call.driver.find_element_by_id("input-price").send_keys(lst[10])
 
             # Quantity
-            gdrive.call.driver.find_element_by_id("input-quantity").send_keys(1)
+            gdrive.call.driver.find_element_by_id("input-quantity").send_keys(lst[11])
 
             # Weight
-            gdrive.call.driver.find_element_by_id("input-weight").send_keys(400)
+            gdrive.call.driver.find_element_by_id("input-weight").send_keys(lst[12])
 
 
 
@@ -87,4 +95,4 @@ class ProdectDiscrib(ac.SelectTopic):
             # # select image option
             # gdrive.call.driver.find_element_by_id("image-thumb-image").click()
         
-        list(map(loopPro, self.gdrive, self.data))
+        list(map(loopPro, self.data))
